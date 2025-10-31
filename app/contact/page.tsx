@@ -65,7 +65,7 @@ export default function Contact() {
                 {
                   icon: FiMail,
                   title: 'Email',
-                  value: 'nfo@sunwizard.ai',
+                  value: 'info@sunwizard.ai',
                   detail: 'We typically respond within 24 hours',
                   color: 'from-orange-400 to-orange-600',
                 },

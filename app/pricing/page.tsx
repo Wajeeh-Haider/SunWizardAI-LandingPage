@@ -22,7 +22,7 @@ export default function Pricing() {
     },
     {
       name: 'Monthly',
-      price: '$20',
+      price: '$5',
       period: '/month',
       description: 'Full access to premium sun protection features',
       features: [
