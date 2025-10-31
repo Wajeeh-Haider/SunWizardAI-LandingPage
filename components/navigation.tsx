@@ -1,31 +1,40 @@
-"use client"
+'use client';
 
-import Link from "next/link"
-import { useState } from "react"
-import { FiMenu, FiX } from "react-icons/fi"
-import Image from "next/image"
+import Link from 'next/link';
+import { useState } from 'react';
+import { FiMenu, FiX } from 'react-icons/fi';
+import Image from 'next/image';
 
 export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/pricing", label: "Pricing" },
-    { href: "/contact", label: "Contact" },
-    { href: "/terms", label: "Terms" },
-  ]
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/pricing', label: 'Pricing' },
+    { href: '/contact', label: 'Contact' },
+    { href: '/terms', label: 'Terms' },
+  ];
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm backdrop-blur-sm bg-opacity-95">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="relative w-10 h-10">
-              <Image src="/images/logo.png" alt="SunWizard AI Logo" width={40} height={40} className="object-contain" />
+          <Link
+            href="/"
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity "
+          >
+            <div className="relative">
+              <Image
+                src="/images/logo.png"
+                alt="SunWizard AI Logo"
+                width={70}
+                height={70}
+                className="object-contain"
+              />
             </div>
-            <span className="font-bold text-lg text-foreground hidden sm:inline bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="font-bold text-lg hidden sm:inline bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               SunWizard AI
             </span>
           </Link>
@@ -50,8 +59,16 @@ export default function Navigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-            {isOpen ? <FiX size={24} className="text-foreground" /> : <FiMenu size={24} className="text-foreground" />}
+          <button
+            className="md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <FiX size={24} className="text-foreground" />
+            ) : (
+              <FiMenu size={24} className="text-foreground" />
+            )}
           </button>
         </div>
 
@@ -79,5 +96,5 @@ export default function Navigation() {
         )}
       </div>
     </nav>
-  )
+  );
 }

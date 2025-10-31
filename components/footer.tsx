@@ -1,9 +1,16 @@
-import Link from "next/link"
-import Image from "next/image"
-import { FiMail, FiLinkedin, FiTwitter, FiInstagram, FiMapPin, FiPhone } from "react-icons/fi"
+import Link from 'next/link';
+import Image from 'next/image';
+import {
+  FiMail,
+  FiLinkedin,
+  FiTwitter,
+  FiInstagram,
+  FiMapPin,
+  FiPhone,
+} from 'react-icons/fi';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-gradient-to-b from-foreground to-black text-white py-16">
@@ -13,14 +20,21 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="relative w-8 h-8">
-                <Image src="/images/logo.png" alt="SunWizard AI" width={32} height={32} className="object-contain" />
+                <Image
+                  src="/images/logo.png"
+                  alt="SunWizard AI"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
               </div>
               <span className="font-bold text-lg bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 SunWizard AI
               </span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
-              Your personal sun protection assistant powered by cutting-edge AI technology.
+              Your personal sun protection assistant powered by cutting-edge AI
+              technology.
             </p>
           </div>
 
@@ -32,18 +46,33 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm text-gray-300">
               <li>
-                <Link href="/" className="hover:text-primary transition-colors flex items-center gap-2 group">
-                  <span className="group-hover:translate-x-1 transition-transform">Features</span>
+                <Link
+                  href="/"
+                  className="hover:text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    Features
+                  </span>
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="hover:text-primary transition-colors flex items-center gap-2 group">
-                  <span className="group-hover:translate-x-1 transition-transform">Pricing</span>
+                <Link
+                  href="/pricing"
+                  className="hover:text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    Pricing
+                  </span>
                 </Link>
               </li>
               <li>
-                <Link href="/" className="hover:text-primary transition-colors flex items-center gap-2 group">
-                  <span className="group-hover:translate-x-1 transition-transform">Download App</span>
+                <Link
+                  href="/"
+                  className="hover:text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    Download App
+                  </span>
                 </Link>
               </li>
             </ul>
@@ -57,18 +86,33 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm text-gray-300">
               <li>
-                <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-2 group">
-                  <span className="group-hover:translate-x-1 transition-transform">About Us</span>
+                <Link
+                  href="/about"
+                  className="hover:text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    About Us
+                  </span>
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-2 group">
-                  <span className="group-hover:translate-x-1 transition-transform">Contact</span>
+                <Link
+                  href="/contact"
+                  className="hover:text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    Contact
+                  </span>
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-primary transition-colors flex items-center gap-2 group">
-                  <span className="group-hover:translate-x-1 transition-transform">Terms & Conditions</span>
+                <Link
+                  href="/terms"
+                  className="hover:text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    Terms & Conditions
+                  </span>
                 </Link>
               </li>
             </ul>
@@ -82,19 +126,12 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-center gap-2">
-                <FiMapPin size={16} className="text-primary flex-shrink-0" />
-                <span>San Francisco, CA</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <FiPhone size={16} className="text-primary flex-shrink-0" />
-                <a href="tel:+1234567890" className="hover:text-primary transition-colors">
-                  +1 (234) 567-890
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
                 <FiMail size={16} className="text-primary flex-shrink-0" />
-                <a href="mailto:hello@sunwizard.ai" className="hover:text-primary transition-colors">
-                  hello@sunwizard.ai
+                <a
+                  href="mailto:info@sunwizard.ai"
+                  className="hover:text-primary transition-colors"
+                >
+                  info@sunwizard.ai
                 </a>
               </li>
             </ul>
@@ -137,15 +174,26 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">© {currentYear} SunWizard AI. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">
+              © {currentYear} SunWizard AI. All rights reserved.
+            </p>
             <div className="flex gap-6 text-sm text-gray-400">
-              <Link href="/terms" className="hover:text-primary transition-colors">
+              <Link
+                href="/privacy"
+                className="hover:text-primary transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="hover:text-primary transition-colors">
+              <Link
+                href="/terms"
+                className="hover:text-primary transition-colors"
+              >
                 Terms of Service
               </Link>
-              <Link href="/contact" className="hover:text-primary transition-colors">
+              <Link
+                href="/contact"
+                className="hover:text-primary transition-colors"
+              >
                 Support
               </Link>
             </div>
@@ -153,5 +201,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
