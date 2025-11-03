@@ -4,36 +4,150 @@ import type React from 'react';
 import { useState } from 'react';
 import {
   FiMail,
-  FiPhone,
-  FiMapPin,
   FiSend,
   FiCheckCircle,
   FiArrowRight,
+  FiAlertCircle,
+  FiLoader,
 } from 'react-icons/fi';
 
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
+
 export default function Contact() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
     message: '',
   });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [apiError, setApiError] = useState<string>('');
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Subject validation
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    } else if (formData.subject.trim().length < 5) {
+      newErrors.subject = 'Subject must be at least 5 characters';
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    } else if (formData.message.trim().length > 1000) {
+      newErrors.message = 'Message must be less than 1000 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+
+    // Clear API error when user makes changes
+    if (apiError) {
+      setApiError('');
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+    setApiError('');
+
+    try {
+      const response = await fetch(
+        'https://prod-api.sunwizard.ai/api/support/web',
+        {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            subject: formData.subject.trim(),
+            message: formData.message.trim(),
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      // Success
+      setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-      setSubmitted(false);
-    }, 3000);
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setApiError(
+        error instanceof Error
+          ? `Failed to send message: ${error.message}`
+          : 'Failed to send message. Please try again later.'
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -105,70 +219,135 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-foreground mb-2">
-                      Name
+                      Name *
                     </label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                        errors.name
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'border-border focus:ring-primary'
+                      }`}
                       placeholder="Your name"
+                      disabled={isLoading}
                     />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                        <FiAlertCircle size={14} />
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-foreground mb-2">
-                      Email
+                      Email *
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                        errors.email
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'border-border focus:ring-primary'
+                      }`}
                       placeholder="your@email.com"
+                      disabled={isLoading}
                     />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                        <FiAlertCircle size={14} />
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-foreground mb-2">
-                    Subject
+                    Subject *
                   </label>
                   <input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                      errors.subject
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-border focus:ring-primary'
+                    }`}
                     placeholder="How can we help?"
+                    disabled={isLoading}
                   />
+                  {errors.subject && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                      <FiAlertCircle size={14} />
+                      {errors.subject}
+                    </p>
+                  )}
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-foreground mb-2">
-                    Message
+                    Message *{' '}
+                    <span className="text-xs text-muted-foreground">
+                      ({formData.message.length}/1000)
+                    </span>
                   </label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    required
                     rows={6}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none"
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all resize-none ${
+                      errors.message
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-border focus:ring-primary'
+                    }`}
                     placeholder="Tell us more..."
+                    disabled={isLoading}
+                    maxLength={1000}
                   />
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                      <FiAlertCircle size={14} />
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
+
+                {apiError && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 flex items-center gap-2">
+                    <FiAlertCircle size={20} />
+                    {apiError}
+                  </div>
+                )}
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-primary to-accent text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2 group"
+                  disabled={isLoading}
+                  className={`w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 group ${
+                    isLoading
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-primary to-accent text-white hover:shadow-lg'
+                  }`}
                 >
-                  <FiSend className="group-hover:translate-x-1 transition-transform" />
-                  Send Message
+                  {isLoading ? (
+                    <>
+                      <FiLoader className="animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <FiSend className="group-hover:translate-x-1 transition-transform" />
+                      Send Message
+                    </>
+                  )}
                 </button>
 
                 {submitted && (
@@ -194,7 +373,7 @@ export default function Contact() {
             {[
               {
                 q: 'How do I download the app?',
-                a: 'You can download SunWizard AI from the Apple App Store or Google Play Store. Search for "SunWizard AI" to find it.',
+                a: 'You can download SunWizard AI from the Google Play Store. Search for "SunWizard AI" to find it.',
               },
               {
                 q: 'Is my location data secure?',
