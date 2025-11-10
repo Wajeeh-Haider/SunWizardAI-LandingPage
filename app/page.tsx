@@ -92,8 +92,8 @@ export default function Home() {
   //   { label: 'Expert Rating', value: '4.9/5', icon: FiAward },
   // ];
 
-  const iosUrl = process.env.NEXT_PUBLIC_IOS_URL || '/contact';
-  const playUrl = process.env.NEXT_PUBLIC_PLAY_URL || '/contact';
+  const iosUrl = process.env.NEXT_PUBLIC_IOS_URL || '/request-access';
+  const playUrl = process.env.NEXT_PUBLIC_PLAY_URL || '/request-access';
 
   return (
     <main className="bg-background overflow-hidden">

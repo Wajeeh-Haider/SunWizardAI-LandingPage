@@ -2,8 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function DownloadCTA() {
-  const iosUrl = process.env.NEXT_PUBLIC_IOS_URL || '/contact';
-  const playUrl = process.env.NEXT_PUBLIC_PLAY_URL || '/contact';
+  const iosUrl = process.env.NEXT_PUBLIC_IOS_URL || '/request-access';
+  const playUrl = process.env.NEXT_PUBLIC_PLAY_URL || '/request-access';
 
   return (
     <section
