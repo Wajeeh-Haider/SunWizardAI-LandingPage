@@ -59,11 +59,11 @@ export const metadata: Metadata = {
       'AI-powered UV monitoring, skin analysis, and personalized sunscreen guidance to keep you protected every day.',
     images: [
       {
-        url: '/dashboard-mockup-one.png',
+        url: '/images/dashboard-mockup-one.png',
         alt: 'SunWizard AI app dashboard and UV alerts',
       },
       {
-        url: '/logo.png',
+        url: '/images/logo.png',
         alt: 'SunWizard AI logo',
       },
     ],
@@ -73,20 +73,17 @@ export const metadata: Metadata = {
     title: 'SunWizard AI — Your Personal Sun Protection Assistant',
     description:
       'AI-powered UV monitoring, skin analysis, and personalized sunscreen guidance to keep you protected every day.',
-    images: ['/dashboard-mockup-one.png'],
+    images: ['/images/dashboard-mockup-one.png'],
     site: '@SunWizardAI',
     creator: '@SunWizardAI',
   },
   icons: {
     icon: [
-      { url: '/favicon.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon.ico', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '16x16', type: 'image/x-icon' },
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
     ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180' }],
     shortcut: ['/favicon.ico'],
-    other: [
-      { rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#5bbad5' },
-    ],
   },
   manifest: '/site.webmanifest',
   themeColor: [
@@ -128,7 +125,7 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'SunWizard AI',
               url: siteUrl,
-              logo: `${siteUrl}/logo.png`,
+              logo: `${siteUrl}/images/logo.png`,
               sameAs: [
                 'https://twitter.com/SunWizardAI',
                 'https://www.linkedin.com/company/sunwizard-ai',
@@ -153,7 +150,7 @@ export default function RootLayout({
               description:
                 'AI-powered UV monitoring, skin analysis, and personalized sunscreen guidance to keep you protected every day.',
               downloadUrl: `${siteUrl}/#download`,
-              image: [`${siteUrl}/dashboard-mockup-one.png`],
+              image: [`${siteUrl}/images/dashboard-mockup-one.png`],
               aggregateRating: {
                 '@type': 'AggregateRating',
                 ratingValue: '4.8',

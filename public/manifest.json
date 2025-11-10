@@ -3,16 +3,16 @@
   "short_name": "SunWizard AI",
   "icons": [
     {
-      "src": "/web-app-manifest-192x192.png",
+      "src": "/icon0.svg",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     },
     {
-      "src": "/web-app-manifest-512x512.png",
+      "src": "/icon1.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
   "theme_color": "#ffffff",
