@@ -2,7 +2,13 @@
 
 import type React from 'react';
 import { useState } from 'react';
-import { FiMail, FiSend, FiCheckCircle, FiAlertCircle, FiLoader } from 'react-icons/fi';
+import {
+  FiMail,
+  FiSend,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiLoader,
+} from 'react-icons/fi';
 import Link from 'next/link';
 
 interface FormData {
@@ -77,22 +83,25 @@ export default function RequestAccess() {
 
     try {
       // Use the same API endpoint as contact, but set our own subject
-      const response = await fetch('https://prod-api.sunwizard.ai/api/support/web', {
-        method: 'POST',
-        headers: {
-          accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          // Name is not collected in this form; provide a sensible default
-          name: 'Beta Access Request',
-          email: formData.email.trim(),
-          // Subject is set programmatically, not from user input
-          subject: 'Request Access: Beta Program',
-          // Include the user-provided reason and a helpful prefix
-          message: `User requests beta access. Reason: ${formData.reason.trim()}`,
-        }),
-      });
+      const response = await fetch(
+        'https://prod-api.sunwizard.ai/api/support/web',
+        {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            // Name is not collected in this form; provide a sensible default
+            name: 'Beta Access Request',
+            email: formData.email.trim(),
+            // Subject is set programmatically, not from user input
+            subject: 'Request Access: Beta Program',
+            // Include the user-provided reason and a helpful prefix
+            message: `User requests beta access. Reason: ${formData.reason.trim()}`,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -146,26 +155,38 @@ export default function RequestAccess() {
               <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
                 <FiMail className="text-white" size={24} />
               </div>
-              <h3 className="text-lg font-semibold text-foreground">Beta Program</h3>
+              <h3 className="text-lg font-semibold text-foreground">
+                Beta Program
+              </h3>
               <p className="text-sm text-muted-foreground">
-                Submit your email and a short note on why you want to use the
-                app. We’ll reach out as soon as we expand access.
+                We are currently in beta testing and are looking for
+                collaborators to provide feedback on our app. Please fill out
+                the form below to get access.
               </p>
-              <p className="text-xs text-muted-foreground">Privacy-first. We only use your email to share access.</p>
+              <p className="text-xs text-muted-foreground">
+                Privacy-first. We only use your email to share access.
+              </p>
             </div>
 
             {/* Form */}
-            <div className="lg:col-span-2 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <div
+              className="lg:col-span-2 animate-slide-up"
+              style={{ animationDelay: '0.2s' }}
+            >
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">Email *</label>
+                  <label className="block text-sm font-semibold text-foreground mb-2">
+                    Email *
+                  </label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                      errors.email ? 'border-red-500 focus:ring-red-500' : 'border-border focus:ring-primary'
+                      errors.email
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-border focus:ring-primary'
                     }`}
                     placeholder="your@email.com"
                     disabled={isLoading}
@@ -181,7 +202,9 @@ export default function RequestAccess() {
                 <div>
                   <label className="block text-sm font-semibold text-foreground mb-2">
                     Why do you want to use the app? *{' '}
-                    <span className="text-xs text-muted-foreground">({formData.reason.length}/1000)</span>
+                    <span className="text-xs text-muted-foreground">
+                      ({formData.reason.length}/1000)
+                    </span>
                   </label>
                   <textarea
                     name="reason"
@@ -189,7 +212,9 @@ export default function RequestAccess() {
                     onChange={handleChange}
                     rows={6}
                     className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all resize-none ${
-                      errors.reason ? 'border-red-500 focus:ring-red-500' : 'border-border focus:ring-primary'
+                      errors.reason
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-border focus:ring-primary'
                     }`}
                     placeholder="Tell us a bit about your use case..."
                     disabled={isLoading}
@@ -214,7 +239,9 @@ export default function RequestAccess() {
                   type="submit"
                   disabled={isLoading}
                   className={`w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 group ${
-                    isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-primary to-accent text-white hover:shadow-lg'
+                    isLoading
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-primary to-accent text-white hover:shadow-lg'
                   }`}
                 >
                   {isLoading ? (
@@ -233,7 +260,8 @@ export default function RequestAccess() {
                 {submitted && (
                   <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 flex items-center gap-2 animate-slide-up">
                     <FiCheckCircle size={20} />
-                    Thank you! We’ve added your email to our beta access list and will share the app with you soon.
+                    Thank you! We’ve added your email to our beta access list
+                    and will share the app with you soon.
                   </div>
                 )}
               </form>
@@ -247,7 +275,10 @@ export default function RequestAccess() {
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm text-muted-foreground">
             Prefer to reach us directly?{' '}
-            <Link href="/contact" className="text-primary font-medium hover:underline">
+            <Link
+              href="/contact"
+              className="text-primary font-medium hover:underline"
+            >
               Contact support
             </Link>
           </p>
