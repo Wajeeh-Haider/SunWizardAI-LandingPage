@@ -59,7 +59,7 @@ export const metadata: Metadata = {
       'AI-powered UV monitoring, skin analysis, and personalized sunscreen guidance to keep you protected every day.',
     images: [
       {
-        url: '/images/dashboard-mockup-one.png',
+        url: '/images/logo.png',
         alt: 'SunWizard AI app dashboard and UV alerts',
       },
       {
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: 'SunWizard AI — Your Personal Sun Protection Assistant',
     description:
       'AI-powered UV monitoring, skin analysis, and personalized sunscreen guidance to keep you protected every day.',
-    images: ['/images/dashboard-mockup-one.png'],
+    images: ['/images/logo.png'],
     site: '@SunWizardAI',
     creator: '@SunWizardAI',
   },
@@ -150,7 +150,7 @@ export default function RootLayout({
               description:
                 'AI-powered UV monitoring, skin analysis, and personalized sunscreen guidance to keep you protected every day.',
               downloadUrl: `${siteUrl}/#download`,
-              image: [`${siteUrl}/images/dashboard-mockup-one.png`],
+              image: [`${siteUrl}/images/logo.png`],
               aggregateRating: {
                 '@type': 'AggregateRating',
                 ratingValue: '4.8',
