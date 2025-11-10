@@ -140,8 +140,9 @@ export default function RequestAccess() {
             className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up"
             style={{ animationDelay: '0.1s' }}
           >
-            We are currently in beta testing and will add your email address to
-            share the app with you when available.
+            We are currently in beta testing and are looking for collaborators
+            to provide feedback on our app. Please fill out the form below to
+            get access.
           </p>
         </div>
       </section>
@@ -159,9 +160,8 @@ export default function RequestAccess() {
                 Beta Program
               </h3>
               <p className="text-sm text-muted-foreground">
-                We are currently in beta testing and are looking for
-                collaborators to provide feedback on our app. Please fill out
-                the form below to get access.
+                Submit your email and a short note on why you want to use the
+                app. We’ll reach out as soon as we expand access.
               </p>
               <p className="text-xs text-muted-foreground">
                 Privacy-first. We only use your email to share access.
